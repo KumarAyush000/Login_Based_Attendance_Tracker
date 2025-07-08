@@ -41,6 +41,7 @@ def emp_attendance():
                 if ask_pass == employees[input_name]:
                     print("Access Granted")
                     attendance_log[input_name] = "Present"
+                    time_log[input_name] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     print(f"{input_name} marked as Present")
                     break
                 else:
@@ -51,16 +52,19 @@ def emp_attendance():
                         print(f"Incorrect password. Tries left: {tries}")
     for emp in employees:  # if employess didn't logged in mark them as absent
         if emp not in attendance_log:
-            attendance_log[emp] = "Abent"
+            attendance_log[emp] = "Absent"
             time_log[emp] = "N/A"
-    print("Attencence log \n ")
-    for emp, status in attendance_log.items():
-        print(f"{emp} : {status}")
-        
-    with open("attendance_log.txt", "w") as file:
-        for log,status in attendance_log.items():
-            file.write(f"{log} : {status} at {time_log[emp]} \n")            
-        
+    print("\nAttendance log \n ")
+    with open("attendance_log.txt", "w")as file:
+         for emp in employees:
+             file.write(f"{emp} : {attendance_log[emp]} at {time_log[emp]} \n")         
+    
+    if attendance_log:
+        for emp in employees:
+            print(f"{emp} : {attendance_log[emp]}")
+    else:
+        print(f"No entry exists.")
+           
                     
 
 emp_attendance()
