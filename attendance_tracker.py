@@ -1,0 +1,48 @@
+
+
+def emp_attendance():           
+    employees = {
+        "ayush": "pass123",
+        "neha": "neha456",
+        "samar": "samar789"
+    }
+    
+    attendance_log ={}
+    
+    
+    while True:
+        input_name = input("Enter your name: ")
+        
+        if input_name == "": # if the user presesses ENTER, will skip it
+            continue
+        elif input_name in attendance_log:
+            print(f"{input_name} already marked as Present")
+            continue
+        elif input_name not in employees:
+            print("User does not exists (if you want to add the user Press : 'y' else press 'n')")
+            choice = input("Enter your choice: ")
+            if choice.lower() == 'y':
+                new_pass = input("Enter password for the user: ")
+                employees[input_name] = new_pass
+                print(f"{input_name} added to the system.")
+                attendance_log[input_name] = "Present"
+                print(f"{input_name} marked as Present.")
+            else:
+                print("Access Denied")
+        else:
+            tries = 3        # setting a counter for tries
+            while tries != 0:
+                ask_pass = input("Enter password: ")
+                if ask_pass == employees[input_name]:
+                    print("Access Granted")
+                    attendance_log[input_name] = "Present"
+                    print(f"{input_name} marked as Present")
+                else:
+                    tries -= 1
+                    if tries == 0:
+                        print("No tries left. Access Denied. \n")
+                    else:
+                        print(f"Incorrect password. Tries left: {tries}")
+                    
+
+emp_attendance()
