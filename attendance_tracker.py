@@ -63,7 +63,7 @@ def emp_attendance():
         for emp in employees:
             print(f"{emp} : {attendance_log[emp]}")
     else:
-        print(f"No entry exi")
+        print(f"No entry exist")
            
                     
 
