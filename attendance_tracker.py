@@ -1,4 +1,4 @@
-
+from datetime import datetime
 
 def emp_attendance():           
     employees = {
@@ -8,12 +8,16 @@ def emp_attendance():
     }
     
     attendance_log ={}
+    time_log = {}
     
     
     while True:
-        input_name = input("Enter your name: ")
+        input_name = input("Enter your name (if want to quit press 'exit'): ")
         
-        if input_name == "": # if the user presesses ENTER, will skip it
+        if input_name.lower() == "exit":
+            print("Exiting the sytsem.")
+            break
+        elif input_name == "": # if the user presesses ENTER, will skip it
             continue
         elif input_name in attendance_log:
             print(f"{input_name} already marked as Present")
@@ -26,6 +30,7 @@ def emp_attendance():
                 employees[input_name] = new_pass
                 print(f"{input_name} added to the system.")
                 attendance_log[input_name] = "Present"
+                time_log[input_name] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 print(f"{input_name} marked as Present.")
             else:
                 print("Access Denied")
@@ -37,12 +42,25 @@ def emp_attendance():
                     print("Access Granted")
                     attendance_log[input_name] = "Present"
                     print(f"{input_name} marked as Present")
+                    break
                 else:
                     tries -= 1
                     if tries == 0:
                         print("No tries left. Access Denied. \n")
                     else:
                         print(f"Incorrect password. Tries left: {tries}")
+    for emp in employees:  # if employess didn't logged in mark them as absent
+        if emp not in attendance_log:
+            attendance_log[emp] = "Abent"
+            time_log[emp] = "N/A"
+    print("Attencence log \n ")
+    for emp, status in attendance_log.items():
+        print(f"{emp} : {status}")
+        
+    with open("attendance_log.txt", "w") as file:
+        for log,status in attendance_log.items():
+            file.write(f"{log} : {status} at {time_log[emp]} \n")            
+        
                     
 
 emp_attendance()
