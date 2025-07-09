@@ -26,12 +26,18 @@ def emp_attendance():
             print("User does not exists (if you want to add the user Press : 'y' else press 'n')")
             choice = input("Enter your choice: ")              # allowing user the choice to add a new user in the system
             if choice.lower() == 'y':
-                new_pass = input("Enter password for the user: ")
-                employees[input_name] = new_pass
-                print(f"{input_name} added to the system.")
-                attendance_log[input_name] = "Present"
-                time_log[input_name] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                print(f"{input_name} marked as Present.")
+                while True:
+                    new_pass = input("Enter password for the user: ")
+                    if new_pass == "":   # if user leaves the password empty
+                        print("Password can not be empty!")
+                        continue
+                    else:                 # storing new users name and passoword and marking their attendance and log in time
+                        employees[input_name] = new_pass
+                        print(f"{input_name} added to the system.")
+                        attendance_log[input_name] = "Present"
+                        time_log[input_name] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        print(f"{input_name} marked as Present.")
+                        break
             else:
                 print("Access Denied")
         else:
