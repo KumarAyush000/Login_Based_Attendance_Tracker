@@ -22,9 +22,9 @@ def emp_attendance():
         elif input_name in attendance_log:
             print(f"{input_name} already marked as Present")
             continue
-        elif input_name not in employees:
+        elif input_name not in employees:         
             print("User does not exists (if you want to add the user Press : 'y' else press 'n')")
-            choice = input("Enter your choice: ")
+            choice = input("Enter your choice: ")              # allowing user the choice to add a new user in the system
             if choice.lower() == 'y':
                 new_pass = input("Enter password for the user: ")
                 employees[input_name] = new_pass
@@ -50,15 +50,19 @@ def emp_attendance():
                         print("No tries left. Access Denied. \n")
                     else:
                         print(f"Incorrect password. Tries left: {tries}")
-    for emp in employees:  # if employess didn't logged in mark them as absent
+    # if employess didn't logged in mark them as absent
+    for emp in employees:  
         if emp not in attendance_log:
             attendance_log[emp] = "Absent"
             time_log[emp] = "N/A"
-    print("\nAttendance log \n ")
+    
+    # adding employees attendance to atteandance_tog.txt file
     with open("attendance_log.txt", "w")as file:
          for emp in employees:
-             file.write(f"{emp} : {attendance_log[emp]} at {time_log[emp]} \n")         
-    
+             file.write(f"{emp} : {attendance_log[emp]} at {time_log[emp]} \n") 
+                     
+    # Printing final Attendance log
+    print("\nAttendance log \n ")
     if attendance_log:
         for emp in employees:
             print(f"{emp} : {attendance_log[emp]}")
